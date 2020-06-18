@@ -31,48 +31,160 @@
       <p id="currentDay" class="lead"></p>
     </header>
     <div class="container">
-      <ul></ul>
+     </row> <ul>
+        <li><row class = "row">
+          <p class="col-md-2 hour">9</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="9" /> <button class="col-md-2 saveBtn saveButton" data-time="9">Save Item 1</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour">10</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="10" /> <button class="col-md-2 saveBtn saveButton" data-time="10">Save Item 2</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour">11</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="11" /> <button class="col-md-2 saveBtn saveButton" data-time="11">Save Item 3</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour">12</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="12" /> <button class="col-md-2 saveBtn saveButton" data-time="12">Save Item 4</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour">1</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="1" /> <button class="col-md-2 saveBtn saveButton" data-time="1">Save Item 5</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour">2</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="2" /> <button class="col-md-2 saveBtn saveButton" data-time="2">Save Item 6</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour">3</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="3" /> <button class="col-md-2 saveBtn saveButton" data-time="3">Save Item</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour ">4</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="4" /> <button class="col-md-2 saveBtn saveButton" data-time="4">Save Item</button>
+        </row>
+      </li>
+        <li><row class = "row">
+          <p class="col-md-2 hour">5</p>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="5" /> <button class="col-md-2 saveBtn saveButton" data-time="5">Save Item</button>
+        </row>
+      </li>
+      </ul>
     </div>
     <script>
+      //using moment.js to get the current date and time, then displaying the date
       let nowMoment = moment();
       $("#currentDay").append(nowMoment.format("dddd, MMMM Do YYYY"));
+      //create global variables
+      let storedItems = [];
       let storedItem;
-      const hours = [9, 10, 11, 12, 1, 2, 3, 4, 5];
-      for (let i = 0; i < hours.length; i++) {
-        const hour = $("<div>").text(hours[i]);
-        let liEl = $("<li>");
-        liEl.addClass("row");
-        hour.addClass("hour col-md-2");
-        const inputEl = $("<input>");
-        inputEl.val("Enter task");
-        inputEl.addClass("col-md-8");
-        const saveButton = $("<button>").text("Save Item").addClass("saveBtn");
-        saveButton.addClass("col-md-2");
-        if (hours[i] < 9) {
-          pmHours = hours[i] + 12;
-          hours[i] = pmHours;
-          console.log(hours[i], parseInt(nowMoment.format("H")));
-        }
-        if (hours[i] < parseInt(nowMoment.format("H"))) {
-          liEl.addClass("past");
-          inputEl.addClass("past");
-          console.log("yayyyy");
-        } else if (hours[i] < parseInt(nowMoment.format("H"))) {
-          inputEl.addClass("future");
-        } else {
-          inputEl.addClass("present");
-        }
+      const liContent = {
+        "9": "",
+        "10": "",
+        "11": "",
+        "12": "",
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+      };
+      const saveButton = $(".saveButton");
+      const inputEl = $(".inputEl");
+      
+      saveButton.click(function(event){
+        event.preventDefault();
+       // console.log($(this).text());
+       // console.log($(this).siblings(".inputEl").val())
+       console.log($(this).data("time"));
+        localStorage.setItem($(this).data("time"), $(this).siblings(".inputEl").val());
+        
+        // storedItems.push(inputEl.val());
+        // localStorage.setItem("storedItem", JSON.stringify(storedItems));
+        // console.log(storedItems);
 
-        $(saveButton).on("click", function () {
-          event.preventDefault;
 
-          localStorage.setItem("storedItem", inputEl);
-          console.log(storedItem);
-        });
+      })
 
-        $(liEl).append(hour, inputEl, saveButton);
-        $("ul").append(liEl);
+const textId = ["9","10","11","12","1","2","3","4","5"];
+let compareHour;
+      function onLoad (){
+        
+        for (i=0; i<textId.length; i++){
+          console.log(textId[i]);
+          $("#"+textId[i]).val(localStorage.getItem(textId[i]));
+
+          if(parseInt(textId[i])<9){
+            compareHour = parseInt(textId[i]) + 12;
+            console.log(compareHour  + "compare" + nowMoment.format("H"));
+          } else {
+            compareHour = parseInt(textId[i]);
+            console.log(compareHour  + " compare" + parseInt(nowMoment.format("H")));
+          }
+
+          if (compareHour < parseInt(nowMoment.format("H"))) {
+        $("#"+textId[i]).addClass("past");
+      } else if (compareHour > parseInt(nowMoment.format("H"))) {
+        $("#"+textId[i]).addClass("future");
+      } else {
+        $("#"+textId[i]).addClass("present");
       }
+
+        }
+        // console.log(localStorage.getItem("9"));
+        // $("#9").val(localStorage.getItem("9"));
+
+      }
+
+      onLoad ();
+
+      // //gives each li an area on the left to display the time
+      // const hour = $("<div>").text(hours[i]);
+      // hour.addClass("hour col-md-2");
+      // //gives each li an input box, and gives it an index number
+      // const inputEl = $("<input>");
+      // inputEl.attr("data-index", i);
+      // inputEl.addClass("col-md-8");
+      // //gives each li a button that gets a class saveBtn
+        
+       
+      // saveButton.addClass("col-md-2");
+      // //this will convert the times to military time and then compare if it is past, current, or still in the future
+      // if () < 9) {
+      //   pmHours = hour + 12;
+      //   hours[i] = pmHours;
+      //   console.log(hours[i], parseInt(nowMoment.format("H")));
+      // }
+      // //if it's in the past, it'll add class "past", future it will add "future", present it will add "present"
+      
+      // //gives the button its onclick funtion
+      // $(saveButton).on("click", function (event) {
+      //   event.preventDefault;
+      //   //on click, it'll store the input text to an array
+      //   storedItems.push(inputEl.val());
+      //   localStorage.setItem("storedItem", JSON.stringify(storedItems));
+      //   console.log(storedItems);
+      // });
+      // // //next it will check to see if there are stored items and if so, display them in the input text
+      // // if (storedItems[i] !== null) {
+      // //   let retrievedStorage = localStorage.getItem("storedItem");
+      // //   let retrievedAsArray = JSON.parse(retrievedStorage);
+      // //   inputEl.val(retrievedAsArray[i]);
+      // // } else {
+      // //   inputEl.val("Add Task");
+      // // }
+
+      // //finally it appends all the created elements to their positions.
+      // $(liEl).append(hour, inputEl, saveButton);
+      // $("ul").append(liEl);
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   </body>
