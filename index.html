@@ -34,32 +34,32 @@
      </row> <ul>
         <li><row class = "row">
           <p class="col-md-2 hour">9</p>
-          <input class="col-md-8 inputEl" placeholder="Input Task" id="9" /> <button class="col-md-2 saveBtn saveButton" data-time="9">Save Item 1</button>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="9" /> <button class="col-md-2 saveBtn saveButton" data-time="9">Save Item</button>
         </row>
       </li>
         <li><row class = "row">
           <p class="col-md-2 hour">10</p>
-          <input class="col-md-8 inputEl" placeholder="Input Task" id="10" /> <button class="col-md-2 saveBtn saveButton" data-time="10">Save Item 2</button>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="10" /> <button class="col-md-2 saveBtn saveButton" data-time="10">Save Item</button>
         </row>
       </li>
         <li><row class = "row">
           <p class="col-md-2 hour">11</p>
-          <input class="col-md-8 inputEl" placeholder="Input Task" id="11" /> <button class="col-md-2 saveBtn saveButton" data-time="11">Save Item 3</button>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="11" /> <button class="col-md-2 saveBtn saveButton" data-time="11">Save Item</button>
         </row>
       </li>
         <li><row class = "row">
           <p class="col-md-2 hour">12</p>
-          <input class="col-md-8 inputEl" placeholder="Input Task" id="12" /> <button class="col-md-2 saveBtn saveButton" data-time="12">Save Item 4</button>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="12" /> <button class="col-md-2 saveBtn saveButton" data-time="12">Save Item</button>
         </row>
       </li>
         <li><row class = "row">
           <p class="col-md-2 hour">1</p>
-          <input class="col-md-8 inputEl" placeholder="Input Task" id="1" /> <button class="col-md-2 saveBtn saveButton" data-time="1">Save Item 5</button>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="1" /> <button class="col-md-2 saveBtn saveButton" data-time="1">Save Item</button>
         </row>
       </li>
         <li><row class = "row">
           <p class="col-md-2 hour">2</p>
-          <input class="col-md-8 inputEl" placeholder="Input Task" id="2" /> <button class="col-md-2 saveBtn saveButton" data-time="2">Save Item 6</button>
+          <input class="col-md-8 inputEl" placeholder="Input Task" id="2" /> <button class="col-md-2 saveBtn saveButton" data-time="2">Save Item</button>
         </row>
       </li>
         <li><row class = "row">
@@ -97,31 +97,33 @@
         "4": "",
         "5": "",
       };
+
+      //referencing html segments with jsquery variables
       const saveButton = $(".saveButton");
       const inputEl = $(".inputEl");
       
+      //creating the on click event for the save button
       saveButton.click(function(event){
         event.preventDefault();
-       // console.log($(this).text());
-       // console.log($(this).siblings(".inputEl").val())
+       
        console.log($(this).data("time"));
+       //accessing the input text as a node sibling of the button
         localStorage.setItem($(this).data("time"), $(this).siblings(".inputEl").val());
         
-        // storedItems.push(inputEl.val());
-        // localStorage.setItem("storedItem", JSON.stringify(storedItems));
-        // console.log(storedItems);
-
-
+        
       })
 
+//creating a function that will display the saved data on loading the page,
+// it will also apply past, future, or present classes, depending on the time
 const textId = ["9","10","11","12","1","2","3","4","5"];
 let compareHour;
       function onLoad (){
         
         for (i=0; i<textId.length; i++){
           console.log(textId[i]);
+          //this specifically references the text area and inputs the saved text
           $("#"+textId[i]).val(localStorage.getItem(textId[i]));
-
+          // this will convert the time to military time for easier comparison
           if(parseInt(textId[i])<9){
             compareHour = parseInt(textId[i]) + 12;
             console.log(compareHour  + "compare" + nowMoment.format("H"));
@@ -129,7 +131,7 @@ let compareHour;
             compareHour = parseInt(textId[i]);
             console.log(compareHour  + " compare" + parseInt(nowMoment.format("H")));
           }
-
+          //this compares the current time to the time slots to determine if it's past, present, or future
           if (compareHour < parseInt(nowMoment.format("H"))) {
         $("#"+textId[i]).addClass("past");
       } else if (compareHour > parseInt(nowMoment.format("H"))) {
@@ -139,52 +141,13 @@ let compareHour;
       }
 
         }
-        // console.log(localStorage.getItem("9"));
-        // $("#9").val(localStorage.getItem("9"));
+        
 
       }
-
+      //call onload function
       onLoad ();
 
-      // //gives each li an area on the left to display the time
-      // const hour = $("<div>").text(hours[i]);
-      // hour.addClass("hour col-md-2");
-      // //gives each li an input box, and gives it an index number
-      // const inputEl = $("<input>");
-      // inputEl.attr("data-index", i);
-      // inputEl.addClass("col-md-8");
-      // //gives each li a button that gets a class saveBtn
-        
-       
-      // saveButton.addClass("col-md-2");
-      // //this will convert the times to military time and then compare if it is past, current, or still in the future
-      // if () < 9) {
-      //   pmHours = hour + 12;
-      //   hours[i] = pmHours;
-      //   console.log(hours[i], parseInt(nowMoment.format("H")));
-      // }
-      // //if it's in the past, it'll add class "past", future it will add "future", present it will add "present"
       
-      // //gives the button its onclick funtion
-      // $(saveButton).on("click", function (event) {
-      //   event.preventDefault;
-      //   //on click, it'll store the input text to an array
-      //   storedItems.push(inputEl.val());
-      //   localStorage.setItem("storedItem", JSON.stringify(storedItems));
-      //   console.log(storedItems);
-      // });
-      // // //next it will check to see if there are stored items and if so, display them in the input text
-      // // if (storedItems[i] !== null) {
-      // //   let retrievedStorage = localStorage.getItem("storedItem");
-      // //   let retrievedAsArray = JSON.parse(retrievedStorage);
-      // //   inputEl.val(retrievedAsArray[i]);
-      // // } else {
-      // //   inputEl.val("Add Task");
-      // // }
-
-      // //finally it appends all the created elements to their positions.
-      // $(liEl).append(hour, inputEl, saveButton);
-      // $("ul").append(liEl);
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   </body>
