@@ -5,3 +5,7 @@ The calendar also changes colors once the time has passed.
 
 https://gsteinseroussi.github.io/homework5/
 https://github.com/gsteinseroussi/homework5
+
+https://user-images.githubusercontent.com/63983214/85080887-5b1d1780-b198-11ea-9267-40f5fd28b427.jpg
+
+https://user-images.githubusercontent.com/63983214/85080888-5bb5ae00-b198-11ea-9ade-12d026eecf32.jpg
